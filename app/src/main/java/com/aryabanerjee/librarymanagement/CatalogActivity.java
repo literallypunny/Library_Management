@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.aryabanerjee.librarymanagement.LibraryContract.FeedEntry;
+import com.aryabanerjee.librarymanagement.LibraryContract.FeedEntry1;
 
 public class CatalogActivity extends AppCompatActivity
 {
@@ -61,6 +62,13 @@ private void displayDatabaseInfo()
             FeedEntry.COL_BOOK_AUTHOR,
             FeedEntry.COL_BOOK_QUANTITY};
 
+    String[] projection_user = {
+            FeedEntry1._ID,
+            FeedEntry1.COL_USER_NAME,
+            FeedEntry1.COL_USER_ID,
+            FeedEntry1.COL_USER_DEPT,
+            FeedEntry1.COL_USER_CONTACT_NUMBER};
+
     //Perform a query on the books table
     Cursor cursor = db.query(
             FeedEntry.TABLE_NAME,
@@ -73,12 +81,11 @@ private void displayDatabaseInfo()
 
     TextView displayView = (TextView) findViewById(R.id.text_view_book);
 
-    try
-    {
+    try {
         // Create a header in the Text View that looks like this:
         //
-        // The pets table contains <number of rows in Cursor> pets.
-        // _id - name - breed - gender - weight
+        // The book table contains <number of rows in Cursor> pets.
+        // _id - Name -Book ID  - Category - Quantity
         //
         // In the while loop below, iterate through the rows of the cursor and display
         // the information from each column in this order.
@@ -119,8 +126,63 @@ private void displayDatabaseInfo()
                     currentCategory + " - " +
                     currentAuthor + " - " +
                     currentQuantity));
+        }
+
+        //Perform a query on the books table
+        Cursor cursor_user = db.query(
+                FeedEntry.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+
+        // Create a header in the Text View that looks like this:
+        //
+        // The user table contains <number of rows in Cursor> pets.
+        // _id - name - breed - gender - weight
+        //
+        // In the while loop below, iterate through the rows of the cursor and display
+        // the information from each column in this order.
+        displayView.setText("The user table contains " + cursor_user.getCount() + " books.\n\n");
+        displayView.append(FeedEntry1._ID + " - " +
+                FeedEntry1.COL_USER_NAME + " - " +
+                FeedEntry1.COL_USER_ID + " - " +
+                FeedEntry1.COL_USER_DEPT + " - " +
+                FeedEntry1.COL_USER_CONTACT_NUMBER + "\n");
+
+        // Figure out the index of each column
+        int id_user_tableColumnIndex = cursor.getColumnIndex(FeedEntry1._ID);
+        int usernameColumnIndex = cursor.getColumnIndex(FeedEntry1.COL_USER_NAME);
+        int useridColumnIndex = cursor.getColumnIndex(FeedEntry1.COL_USER_ID);
+        int userdepartmentColumnIndex = cursor.getColumnIndex(FeedEntry1.COL_USER_DEPT);
+        int usercontactnumberColumnIndex = cursor.getColumnIndex(FeedEntry1.COL_USER_CONTACT_NUMBER);
+        //int authorColumnIndex = cursor.getColumnIndex(FeedEntry.COL_BOOK_AUTHOR);
+        //int quantityColumnIndex = cursor.getColumnIndex(FeedEntry.COL_BOOK_QUANTITY);
+
+        // Iterate through all the returned rows in the cursor
+        while (cursor_user.moveToNext()) {
+            // Use that index to extract the String or Int value of the word
+            // at the current row the cursor is on.
+            int currentuser_table_ID = cursor_user.getInt(id_user_tableColumnIndex);
+            String currentUserName = cursor_user.getString(usernameColumnIndex);
+            String currentUserID = cursor_user.getString(useridColumnIndex);
+            String currentUserDepartment = cursor_user.getString(userdepartmentColumnIndex);
+            int currentusercontactnumber = cursor_user.getInt(usercontactnumberColumnIndex);
+            //int currentCategory = cursor.getInt(categoryColumnIndex);
+            //int currentQuantity = cursor.getInt(quantityColumnIndex);
+            // Display the values from each column of the current row in the cursor in the TextView
+            displayView.append(("\n" + currentuser_table_ID + " - " +
+                    currentUserName + " - " +
+                    currentUserID + " - " +
+                    currentUserDepartment + " - " +
+                    currentusercontactnumber));
+        }
     }
-}finally {
+
+finally {
         cursor.close();
     }
     }

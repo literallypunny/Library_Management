@@ -14,4 +14,9 @@
         android:id="@+id/action_delete_all_entries"
         android:title="@string/action_delete_all_entries"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_issue_book"
+        android:title="@string/action_issue_book"
+        app:showAsAction="never" />
 </menu>

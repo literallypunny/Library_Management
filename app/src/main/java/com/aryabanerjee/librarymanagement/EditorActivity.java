@@ -33,7 +33,7 @@ private EditText mBookIDEditText;
  */
 private EditText mBookPublicationEditText;
 /**
- * EditText field to enter the book's category
+ * Dropdown spinner to enter the book's category
  */
 private Spinner mBookCategorySpinner;
 /**
@@ -109,7 +109,7 @@ private void setupSpinner() {
 }
 
 /**
- * Get user input from editor and save new pet into database.
+ * Get user input from editor and save new book into database.
  */
 private void insertBook() {
     // Read from input fields
@@ -148,6 +148,7 @@ private void insertBook() {
         // Otherwise, the insertion was successful and we can display a toast with the row ID.
         Toast.makeText(this, "Book saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
     }
+    db.close();
 }
 
 @Override

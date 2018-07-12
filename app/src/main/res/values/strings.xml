@@ -17,5 +17,13 @@
     <string name="category_engineering">Engineering</string>
     <string name="category_business">Business</string>
     <string name="action_insert_dummy_data">Insert Dummy Data</string>
+    <string name="action_issue_book">Issue a book</string>
+    <string name="hint_user_issue_book">Issue a Book</string>
+    <string name="hint_user_name">User Name</string>
+    <string name="hint_user_id">User ID</string>
+    <string name="hint_user_DOB">Date of Birth</string>
+    <string name="hint_user_department">Department</string>
+    <string name="hint_user_contact_number">Phone Number</string>
+    <string name="book_category">Book</string>
 
 </resources>
